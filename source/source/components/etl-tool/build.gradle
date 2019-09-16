@@ -1,0 +1,11 @@
+jar {
+    baseName = 'neasaa-etl'
+}
+
+dependencies {
+	compile libraries.logger
+	compile libraries.commonsCsv
+	compile libraries.commonsCli
+}
+
+eclipse.project.name = 'neasaa-etl'

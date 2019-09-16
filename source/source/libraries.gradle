@@ -1,0 +1,19 @@
+// Define list of jars to be used by application
+ext.libraries = [
+    //Logging Jars
+    slf4jApi: "org.slf4j:slf4j-api:1.7.25@jar",
+    slf4jImpl: "org.apache.logging.log4j:log4j-slf4j-impl:2.10.0@jar",
+    apacheLogApi : "org.apache.logging.log4j:log4j-api:2.10.0@jar",
+	apacheLogCore: "org.apache.logging.log4j:log4j-core:2.10.0@jar",
+    commonsCsv: "org.apache.commons:commons-csv:1.6@jar",
+    commonsCli: "commons-cli:commons-cli:1.4@jar"
+]
+
+libraries << [
+	logger: [
+		libraries.slf4jApi,
+		libraries.slf4jImpl,
+		libraries.apacheLogApi,
+		libraries.apacheLogCore
+	]
+]

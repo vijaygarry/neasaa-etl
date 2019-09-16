@@ -1,0 +1,2 @@
+rootProject.name = 'neasaa-etl'
+include 'components:etl-tool'

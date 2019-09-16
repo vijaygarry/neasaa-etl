@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN" monitorInterval="5">
+ 
+  <Properties>
+    <Property name="baseDir">/app/logs/etl-tools</Property>
+    <Property name="rolloverTime">0 0 0 1/1 * ? *</Property>
+  </Properties>
+	<Appenders>
+ 
+		<RollingFile name="Diagnostic" bufferSize="512" fileName="${baseDir}/etl-tools.log"
+		filepattern="${baseDir}/etl-tools.log.%d{yyyyMMdd}">
+			<PatternLayout pattern="%d{yyyyMMdd HHmmss.SSS} ${hostName} %X{sessionId} %X{remoteIpAddress} %X{logonName} %X{product} %c{1} %p %m%n" />
+			<CronTriggeringPolicy schedule="${rolloverTime}"/>
+			<DefaultRolloverStrategy max="40" />
+		</RollingFile>
+		
+ 		<RollingFile name="Error" bufferedIO="false" bufferSize="0" fileName="${baseDir}/etl-tools.err"
+ 		filepattern="${baseDir}/etl-tools.err.%d{yyyyMMdd}">
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout pattern="%d{yyyyMMdd HHmmss.SSS} ${hostName} %X{sessionId} %X{remoteIpAddress} %X{logonName} %X{product} %c LOG4J %p %m%n" />
+			<CronTriggeringPolicy schedule="${rolloverTime}"/>
+			<DefaultRolloverStrategy max="40" />
+		</RollingFile>
+
+		<RollingFile name="ErrorReport" bufferedIO="false" bufferSize="0" fileName="${baseDir}/etl-tools.err.report"
+ 		filepattern="${baseDir}/etl-tools.err.report.%d{yyyyMMdd}">
+			<PatternLayout pattern="%d{yyyyMMdd HHmmss.SSS} ${hostName} %X{sessionId} %X{remoteIpAddress} %X{logonName} %X{product} %c LOG4J %p %m%n" />
+			<CronTriggeringPolicy schedule="${rolloverTime}"/>
+			<DefaultRolloverStrategy max="40" />
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="Diagnostic" />
+			<AppenderRef ref="Error" />
+		</Root>
+		<Logger name="ERROR_REPORT" level="info" additivity="false" >
+			<AppenderRef ref="ErrorReport" />
+		</Logger>
+	</Loggers>
+</Configuration>
